@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    private var gridColumns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 2)
+struct CollectionView: View {
+    private var gridColumns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 3)
     
     var body: some View {
         NavigationStack {
@@ -17,7 +17,7 @@ struct ContentView: View {
                     ForEach(Categories.allCases, id: \.self) { category in
                         GeometryReader { geo in
                             NavigationLink {
-                                Text("Hello")
+                                QuestionsView(category: category.getChild())
                             } label: {
                                 categoryItem(category, size: geo.size.width)
                             }
@@ -40,10 +40,11 @@ struct ContentView: View {
                 Text(category.rawValue)
                     .foregroundColor(Color(uiColor: .white))
                     .multilineTextAlignment(.center)
-                    .font(.category)
-                    .padding()
+                    .font(.primary)
+                    .padding(.horizontal)
+                    //.padding()
             }
-            .frame(width: size, height: size / 1.1)
+            .frame(width: size, height: size)
             .background(Color.accentColor)
             .cornerRadius(12)
     }
@@ -51,6 +52,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        CollectionView()
     }
 }

@@ -35,18 +35,39 @@ extension Categories {
     }
 }
 
+extension Question {
+    public static var stubs: [Question] {
+        let array = Array(repeating: Question(
+            category: "culture",
+            id: UUID().uuidString,
+            correctAnswer: "Powerful Indian King who established a large empire by conquest before converting to Buddhism.",
+            incorrectAnswers: [
+                "Queen of England from 1558 to her death in 1603. Cemented England as a Protestant country, defeated Spanish Armada.",
+                "Explorer, first European to reach India and establish a route for imperialism.",
+                "Spiritual Teacher and founder of Buddhism."
+            ],
+            question: "🤔 Which of the following describes Asoka?"), count: 10)
+        return array
+    }
+}
+
 extension Font {
-    public static func primaryBold() -> Font {
-        return boldFont(18)
+    public static var primary: Font {
+        boldFont(18)
     }
     public static var category: Font {
         boldFont(22)
+    }
+    public static var question: Font {
+        boldFont(24)
     }
     
     public static var secondaryRegular: Font {
         regularFont(15)
     }
-    
+    public static var secondaryRegular2: Font {
+        regularFont(17)
+    }
     private static func boldFont(_ size: CGFloat) -> Font {
         return .custom("ProximaNova-Bold", size: size)
     }
