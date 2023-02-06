@@ -12,6 +12,7 @@ struct TriviaApppApp: App {
     var body: some Scene {
         WindowGroup {
             AppTabView()
+                .preferredColorScheme(.dark)
         }
     }
 }

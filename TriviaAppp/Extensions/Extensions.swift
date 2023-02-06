@@ -33,6 +33,30 @@ extension Categories {
             return "sport_and_leisure"
         }
     }
+    var icon: String {
+        switch self {
+        case .artLiterature:
+            return "text.book.closed.fill"
+        case .filmTV:
+            return "tv.fill"
+        case .foodDrink:
+            return "takeoutbag.and.cup.and.straw.fill"
+        case .GK:
+            return "books.vertical.fill"
+        case .Geography:
+            return "map.fill"
+        case .History:
+            return "globe.americas.fill"
+        case .Music:
+            return "music.note.list"
+        case .Science:
+            return "brain"
+        case .societyCulture:
+            return "figure.2.and.child.holdinghands"
+        case .sportLeisure:
+            return "sportscourt.fill"
+        }
+    }
 }
 
 extension Question {
@@ -73,5 +97,41 @@ extension Font {
     }
     private static func regularFont(_ size: CGFloat) -> Font {
         return .custom("ProximaNova-Regular", size: size)
+    }
+}
+
+extension Color {
+    static subscript(name: String) -> Color {
+        switch name {
+        case "green":
+            return Color.green
+        case "teal":
+            return Color.teal
+        case "accent":
+            return Color.accentColor
+        case "pink":
+            return Color.pink
+        case "mint":
+            return Color.mint
+        case "purple":
+            return Color.purple
+        case "orange":
+            return Color.orange
+        case "brown":
+            return Color.brown
+        case "indigo":
+            return Color.indigo
+        case "cyan":
+            return Color.cyan
+        default:
+            return Color.accentColor
+        }
+    }
+    static var random: Color {
+        let colors = ["green", "teal", "accent", "pink", "mint", "purple", "orange", "brown", "indigo", "cyan"]
+        if let random = colors.randomElement() {
+           return Color[random]
+        }
+        return Color["accent"]
     }
 }

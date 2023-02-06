@@ -33,7 +33,7 @@ struct CollectionView: View {
     
     private func categoryItem (_ category: Categories, size: Double) -> some View {
             VStack(alignment: .center, spacing: 10) {
-                Image(systemName: "books.vertical.fill")
+                Image(systemName: category.icon)
                     .imageScale(.large)
                     .symbolRenderingMode(.palette)
                     .foregroundColor(Color(uiColor: .white))
@@ -42,10 +42,9 @@ struct CollectionView: View {
                     .multilineTextAlignment(.center)
                     .font(.primary)
                     .padding(.horizontal)
-                    //.padding()
             }
             .frame(width: size, height: size)
-            .background(Color.accentColor)
+            .background(Color.random)
             .cornerRadius(12)
     }
 }

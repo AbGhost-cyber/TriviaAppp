@@ -16,6 +16,7 @@ struct QuestionItem: View {
             Text("Select an answer")
                 .foregroundColor(.gray)
                 .font(.secondaryRegular2)
+                .padding(.horizontal, 5)
             Text(question.question)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.black)
@@ -24,9 +25,11 @@ struct QuestionItem: View {
                 .padding(.top, 10)
             optionsView
                 .padding(.top, 10)
-        }.onAppear {
+        }
+        .onAppear {
             options = question.options.shuffled()
         }
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     
     
@@ -40,6 +43,7 @@ struct QuestionItem: View {
                     .padding(.leading)
                 Text(option)
                     .foregroundColor(.black)
+                    .lineLimit(5)
                     .multilineTextAlignment(.leading)
                     .font(.secondaryRegular2)
                 Spacer()
@@ -50,10 +54,11 @@ struct QuestionItem: View {
                         .fill(isSelected ? .purple.opacity(0.4) : .clear)
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(isSelected ? .purple : .gray, lineWidth: 1.5)
-                }.frame(height: 75)
+                }
+                .frame(height: 75)
             }
-            .padding([.vertical, .bottom])
-            .frame(minHeight: 70)
+            //.padding([.vertical, .bottom])
+            .frame(minHeight: 75)
             .onTapGesture {
                 selectedOption = option
             }

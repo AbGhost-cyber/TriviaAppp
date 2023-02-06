@@ -23,20 +23,19 @@ struct QuestionsView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
-                ProgressView(value: Double(props.currentIndex), total: Double(data.count))
-                    .progressViewStyle(.linear)
-                    .tint(.primary)
-                    .scaleEffect(x: 1, y: 1.5, anchor: .center)
-                    .padding()
-                ZStack {
-                    Rectangle()
-                        .fill(Color.accentColor.opacity(0.5))
-                        .ignoresSafeArea(.all)
-                    
-                    ForEach(data.indices.reversed(), id: \.self) { index in
-                        let relativeIndex = data.distance(from: props.currentIndex, to: index)
-                        if relativeIndex >= 0 && relativeIndex < props.maxCardsToDisplay {
-                            card(index: index, geo: geo, rIndex: relativeIndex)
+                VStack {
+                    ProgressView(value: Double(props.currentIndex), total: Double(data.count))
+                        .progressViewStyle(.linear)
+                        .tint(.accentColor)
+                        .scaleEffect(x: 1, y: 1.5, anchor: .center)
+                        .padding()
+                        .padding(.bottom)
+                    ZStack {
+                        ForEach(data.indices.reversed(), id: \.self) { index in
+                            let relativeIndex = data.distance(from: props.currentIndex, to: index)
+                            if relativeIndex >= 0 && relativeIndex < props.maxCardsToDisplay {
+                                card(index: index, geo: geo, rIndex: relativeIndex)
+                            }
                         }
                     }
                 }
@@ -73,7 +72,7 @@ struct QuestionsView: View {
                 if props.currentIndex == index {
                     VStack {
                         QuestionItem(question: data[index], selectedOption: $selectedOption)
-                        actionButtonView(index: index)
+                        actionButtonView(index: index, geo: geo)
                     }
                     .padding(.horizontal, 35)
                 }
@@ -85,7 +84,7 @@ struct QuestionsView: View {
     }
     
     @ViewBuilder
-    private func actionButtonView (index: Int) -> some View {
+    private func actionButtonView (index: Int, geo: GeometryProxy) -> some View {
         HStack {
             Button {
                 guard props.currentIndex > 0 else { return }
@@ -98,7 +97,7 @@ struct QuestionsView: View {
                 Text("Back")
                     .foregroundColor(.black)
                     .font(.title2)
-                    .frame(width: 120, height: 65)
+                    .frame(width: geo.size.width / 3, height: 65)
                     .bold()
             }
             Spacer()
@@ -114,7 +113,7 @@ struct QuestionsView: View {
                     .foregroundColor(.white)
                     .font(.title2)
                     .bold()
-                    .frame(width: 120, height: 65)
+                    .frame(width: geo.size.width / 2, height: 65)
                     .background(Color.accentColor)
                     .cornerRadius(12)
             }
