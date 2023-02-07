@@ -17,7 +17,9 @@ struct CardProps {
 struct QuestionsView: View {
     @State private var props: CardProps = CardProps()
     @StateObject var viewmodel: QuestionViewModel = QuestionViewModel()
+    @State private var showStats = false
     let category: String
+    let childCategory: String
     
     var body: some View {
         NavigationStack {
@@ -66,11 +68,24 @@ struct QuestionsView: View {
                 } else if viewmodel.isLoading {
                     ProgressView()
                 }
-                
+                if props.hasReachedEnd {
+                    ScoreCard(score: viewmodel.getUserScore(), category: category) { clickType in
+                        switch clickType {
+                        case .playAgain :
+                            Task { try await viewmodel.playAgain(category: childCategory)}
+                            props.currentIndex = 0
+                            props.hasReachedEnd = false
+                        case .viewStatistics:
+                            showStats = true
+                        }
+                    }
+                    .animation(.easeInOut(duration: 0.35), value: props.hasReachedEnd)
+                    .transition(.move(edge: Edge.bottom))
+                }
             }
             .onAppear {
                 Task {
-                    try await viewmodel.fetchQuestions(category: category)
+                    try await viewmodel.fetchQuestions(category: childCategory)
                 }
             }
         }
@@ -110,7 +125,6 @@ struct QuestionsView: View {
                     }
                     if let currentScore = currentScore {
                         viewmodel.currentScore = currentScore
-                        print("current score: \(currentScore.userOption)")
                     }
                 }
             } label: {
@@ -126,11 +140,13 @@ struct QuestionsView: View {
                     props.isBackTracking = false
                     props.hasReachedEnd = index == viewmodel.questions.count - 1
                     props.currentIndex = viewmodel.questions.index(after: index)
-                    let currentScore = viewmodel.userScores.first { score in
-                        score.question == viewmodel.questions[props.currentIndex].question
-                    }
-                    if let currentScore = currentScore {
-                        viewmodel.currentScore = currentScore
+                    if props.currentIndex <= viewmodel.questions.count - 1 {
+                        let currentScore = viewmodel.userScores.first { score in
+                            score.question == viewmodel.questions[props.currentIndex].question
+                        }
+                        if let currentScore = currentScore {
+                            viewmodel.currentScore = currentScore
+                        }
                     }
                 }
             } label: {
@@ -143,7 +159,7 @@ struct QuestionsView: View {
                     .cornerRadius(12)
             }
         }
-        .padding(.top, 40)
+        .padding(.top, 35)
     }
     
     func getCardColor(rIndex: Int) -> Color {
@@ -160,7 +176,7 @@ struct QuestionsView: View {
 
 struct QuestionsView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionsView(category: "music")
+        QuestionsView(category: "Music", childCategory: "music")
             .preferredColorScheme(.dark)
     }
 }

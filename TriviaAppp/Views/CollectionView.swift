@@ -17,7 +17,7 @@ struct CollectionView: View {
                     ForEach(Categories.allCases, id: \.self) { category in
                         GeometryReader { geo in
                             NavigationLink {
-                                QuestionsView(category: category.getChild())
+                                QuestionsView(category: category.rawValue, childCategory: category.getChild())
                             } label: {
                                 categoryItem(category, size: geo.size.width)
                             }

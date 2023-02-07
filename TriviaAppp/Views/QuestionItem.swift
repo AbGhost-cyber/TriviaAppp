@@ -23,20 +23,21 @@ struct QuestionItem: View {
                 .foregroundColor(.black)
                 .font(.question)
                 .bold()
-                .padding(.top, 10)
+                .padding(.top, 5)
             optionsView
                 .padding(.top, 10)
         }
         .onAppear {
             options = question.options.shuffled()
         }
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
     
     
     private var optionsView: some View {
         ForEach(options, id: \.self) { option in
-            let isSelected = viewModel.currentScore.userOption == option
+            let isSameAnswer = viewModel.currentScore.userOption == option
+            let isSameQuestion = viewModel.currentScore.question == question.question
+            let isSelected = isSameAnswer && isSameQuestion
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill": "circle")
                     .symbolRenderingMode(.palette)

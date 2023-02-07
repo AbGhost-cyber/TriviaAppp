@@ -45,8 +45,17 @@ class QuestionViewModel: ObservableObject {
     func updateCurrentScore(_ score: Score) {
         self.currentScore.userOption = score.userOption
         self.currentScore.isCorrect = score.isCorrect
-        self.currentScore.question = score.userOption
+        self.currentScore.question = score.question
         upsertScore(score: score)
+    }
+    func playAgain(category: String) async throws {
+        userScores.removeAll()
+        currentScore = Score()
+        questions.removeAll()
+        try await fetchQuestions(category: category)
+    }
+    func getUserScore() -> Int {
+        return self.userScores.filter({$0.isCorrect == true }).count
     }
 }
 

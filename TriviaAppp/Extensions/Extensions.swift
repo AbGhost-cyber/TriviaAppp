@@ -100,6 +100,22 @@ extension Font {
     }
 }
 
+extension Int {
+    var scoreText: String {
+        switch self {
+        case 0...2:
+            return "Great things are done by a series of small things brought together, don't lose hope soldier 🫡"
+        case 3...6:
+            return "Keep your eyes on the stars, and your feet on the ground, you can do better 🫶🏾"
+        case 7:
+            return "Don’t be pushed around by the fears in your mind. Be led by the dreams in your heart, good job 🤙🏾"
+        case 8...10:
+            return "Good. Better. Best. Never let it rest. ’Til your good is better and your better is best, Congrats 😻"
+        default :
+            return ""
+        }
+    }
+}
 extension Color {
     static subscript(name: String) -> Color {
         switch name {
