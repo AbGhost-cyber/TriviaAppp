@@ -16,7 +16,6 @@ struct CardProps {
 
 struct QuestionsView: View {
     @State private var props: CardProps = CardProps()
-    @State private var selectedOption = ""
     @StateObject var viewmodel: QuestionViewModel = QuestionViewModel()
     let category: String
     
@@ -82,11 +81,11 @@ struct QuestionsView: View {
         RoundedRectangle(cornerRadius: 20, style: .circular)
             .fill(getCardColor(rIndex: rIndex))
             .padding()
-            .frame(height: geo.size.height / 1.2)
+            .frame(height: geo.size.height / 1.1)
             .overlay {
                 if props.currentIndex == index {
                     VStack {
-                        QuestionItem(question: viewmodel.questions[index], selectedOption: $selectedOption)
+                        QuestionItem(question: viewmodel.questions[index], viewModel: viewmodel)
                         actionButtonView(index: index, geo: geo)
                     }
                     .padding(.horizontal, 35)
@@ -106,7 +105,13 @@ struct QuestionsView: View {
                 withAnimation(Animation.easeOut(duration: 0.35)) {
                     props.currentIndex = viewmodel.questions.index(before: index)
                     props.isBackTracking = true
-                    selectedOption = ""
+                    let currentScore = viewmodel.userScores.first { score in
+                        score.question == viewmodel.questions[props.currentIndex].question
+                    }
+                    if let currentScore = currentScore {
+                        viewmodel.currentScore = currentScore
+                        print("current score: \(currentScore.userOption)")
+                    }
                 }
             } label: {
                 Text("Back")
@@ -121,7 +126,12 @@ struct QuestionsView: View {
                     props.isBackTracking = false
                     props.hasReachedEnd = index == viewmodel.questions.count - 1
                     props.currentIndex = viewmodel.questions.index(after: index)
-                    selectedOption = ""
+                    let currentScore = viewmodel.userScores.first { score in
+                        score.question == viewmodel.questions[props.currentIndex].question
+                    }
+                    if let currentScore = currentScore {
+                        viewmodel.currentScore = currentScore
+                    }
                 }
             } label: {
                 Text("Next")
@@ -149,13 +159,8 @@ struct QuestionsView: View {
 }
 
 struct QuestionsView_Previews: PreviewProvider {
-    private static let vm: QuestionViewModel = {
-        let vm = QuestionViewModel()
-        return vm
-    }()
     static var previews: some View {
         QuestionsView(category: "music")
             .preferredColorScheme(.dark)
-        // .environmentObject(vm)
     }
 }

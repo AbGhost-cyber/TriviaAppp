@@ -13,6 +13,7 @@ class QuestionViewModel: ObservableObject {
     @Published var questions: [Question] = []
     
     @Published var userScores: [Score] = []
+    @Published var currentScore: Score = Score()
     
     let service: QuestionAPI
     
@@ -32,6 +33,20 @@ class QuestionViewModel: ObservableObject {
         } catch {
             errorText = error.localizedDescription
         }
+    }
+    
+   private func upsertScore(score: Score) {
+        if let scorePosition = userScores.firstIndex(where: {$0.question == score.question}) {
+            userScores[scorePosition] = score
+        } else {
+            userScores.append(score)
+        }
+    }
+    func updateCurrentScore(_ score: Score) {
+        self.currentScore.userOption = score.userOption
+        self.currentScore.isCorrect = score.isCorrect
+        self.currentScore.question = score.userOption
+        upsertScore(score: score)
     }
 }
 

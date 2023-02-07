@@ -9,15 +9,16 @@ import SwiftUI
 
 struct QuestionItem: View {
     let question: Question
-    @Binding var selectedOption: String
-   @State var options: [String] = []
+    @State var options: [String] = []
+    @ObservedObject var viewModel: QuestionViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Select an answer")
                 .foregroundColor(.gray)
                 .font(.secondaryRegular2)
                 .padding(.horizontal, 5)
-            Text(question.question)
+            Text("\(question.question) 🤔")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.black)
                 .font(.question)
@@ -35,7 +36,7 @@ struct QuestionItem: View {
     
     private var optionsView: some View {
         ForEach(options, id: \.self) { option in
-            let isSelected = selectedOption == option
+            let isSelected = viewModel.currentScore.userOption == option
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill": "circle")
                     .symbolRenderingMode(.palette)
@@ -60,7 +61,9 @@ struct QuestionItem: View {
             //.padding([.vertical, .bottom])
             .frame(minHeight: 75)
             .onTapGesture {
-                selectedOption = option
+                let isCorrect = option == question.correctAnswer
+                let score = Score(isCorrect: isCorrect, userOption: option, question: question.question)
+                viewModel.updateCurrentScore(score)
             }
         }
     }
@@ -68,6 +71,6 @@ struct QuestionItem: View {
 
 struct QuestionItem_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionItem(question: .stubs[0], selectedOption: .constant(Question.stubs[0].correctAnswer))
+        QuestionItem(question: .stubs[0], viewModel: QuestionViewModel())
     }
 }

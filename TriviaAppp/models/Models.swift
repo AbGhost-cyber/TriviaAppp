@@ -37,5 +37,6 @@ struct Question: Decodable {
 
 struct Score {
     var isCorrect: Bool = false
-    var userOption: String
+    var userOption: String = ""
+    var question: String = ""
 }
