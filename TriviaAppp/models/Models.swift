@@ -34,3 +34,8 @@ struct Question: Decodable {
         return answers
     }
 }
+
+struct Score {
+    var isCorrect: Bool = false
+    var userOption: String
+}

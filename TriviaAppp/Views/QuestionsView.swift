@@ -17,22 +17,22 @@ struct CardProps {
 struct QuestionsView: View {
     @State private var props: CardProps = CardProps()
     @State private var selectedOption = ""
+    @StateObject var viewmodel: QuestionViewModel = QuestionViewModel()
     let category: String
-    let data = Question.stubs
     
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
                 VStack {
-                    ProgressView(value: Double(props.currentIndex), total: Double(data.count))
+                    ProgressView(value: Double(props.currentIndex), total: Double(viewmodel.questions.count))
                         .progressViewStyle(.linear)
                         .tint(.accentColor)
                         .scaleEffect(x: 1, y: 1.5, anchor: .center)
                         .padding()
                         .padding(.bottom)
                     ZStack {
-                        ForEach(data.indices.reversed(), id: \.self) { index in
-                            let relativeIndex = data.distance(from: props.currentIndex, to: index)
+                        ForEach(viewmodel.questions.indices.reversed(), id: \.self) { index in
+                            let relativeIndex = viewmodel.questions.distance(from: props.currentIndex, to: index)
                             if relativeIndex >= 0 && relativeIndex < props.maxCardsToDisplay {
                                 card(index: index, geo: geo, rIndex: relativeIndex)
                             }
@@ -54,9 +54,24 @@ struct QuestionsView: View {
                     
                 }
                 ToolbarItem(placement: .principal) {
-                    Text("\(props.currentIndex) of \(data.count)")
+                    Text("\(props.currentIndex) of \(viewmodel.questions.count)")
                         .font(.primary)
                         .foregroundColor(Color(uiColor: .white))
+                }
+            }
+            .overlay {
+                if viewmodel.questions.isEmpty && !viewmodel.isLoading {
+                    Text("No questions for this category 😑")
+                        .font(.primary)
+                        .foregroundColor(Color(uiColor: .secondaryLabel))
+                } else if viewmodel.isLoading {
+                    ProgressView()
+                }
+                
+            }
+            .onAppear {
+                Task {
+                    try await viewmodel.fetchQuestions(category: category)
                 }
             }
         }
@@ -71,7 +86,7 @@ struct QuestionsView: View {
             .overlay {
                 if props.currentIndex == index {
                     VStack {
-                        QuestionItem(question: data[index], selectedOption: $selectedOption)
+                        QuestionItem(question: viewmodel.questions[index], selectedOption: $selectedOption)
                         actionButtonView(index: index, geo: geo)
                     }
                     .padding(.horizontal, 35)
@@ -89,7 +104,7 @@ struct QuestionsView: View {
             Button {
                 guard props.currentIndex > 0 else { return }
                 withAnimation(Animation.easeOut(duration: 0.35)) {
-                    props.currentIndex = data.index(before: index)
+                    props.currentIndex = viewmodel.questions.index(before: index)
                     props.isBackTracking = true
                     selectedOption = ""
                 }
@@ -104,8 +119,8 @@ struct QuestionsView: View {
             Button {
                 withAnimation(Animation.easeIn(duration: 0.35)) {
                     props.isBackTracking = false
-                    props.hasReachedEnd = index == data.count - 1
-                    props.currentIndex = data.index(after: index)
+                    props.hasReachedEnd = index == viewmodel.questions.count - 1
+                    props.currentIndex = viewmodel.questions.index(after: index)
                     selectedOption = ""
                 }
             } label: {
@@ -134,7 +149,13 @@ struct QuestionsView: View {
 }
 
 struct QuestionsView_Previews: PreviewProvider {
+    private static let vm: QuestionViewModel = {
+        let vm = QuestionViewModel()
+        return vm
+    }()
     static var previews: some View {
         QuestionsView(category: "music")
+            .preferredColorScheme(.dark)
+        // .environmentObject(vm)
     }
 }

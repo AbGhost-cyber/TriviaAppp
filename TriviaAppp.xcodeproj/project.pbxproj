@@ -19,6 +19,7 @@
 		04F0A2B3299100F1004DD321 /* AppTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B2299100F1004DD321 /* AppTabView.swift */; };
 		04F0A2B5299105BD004DD321 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B4299105BD004DD321 /* QuestionsView.swift */; };
 		04F0A2B729910D88004DD321 /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B629910D88004DD321 /* QuestionItem.swift */; };
+		04F0A2B929921AA9004DD321 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		04F0A2B2299100F1004DD321 /* AppTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabView.swift; sourceTree = "<group>"; };
 		04F0A2B4299105BD004DD321 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		04F0A2B629910D88004DD321 /* QuestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItem.swift; sourceTree = "<group>"; };
+		04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		04F0A2A12990F920004DD321 /* Viewmodels */ = {
 			isa = PBXGroup;
 			children = (
+				04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */,
 			);
 			path = Viewmodels;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				04F0A2B729910D88004DD321 /* QuestionItem.swift in Sources */,
 				04F0A2AA2990FA9C004DD321 /* QuestionService.swift in Sources */,
 				04F0A2942990F907004DD321 /* TriviaApppApp.swift in Sources */,
+				04F0A2B929921AA9004DD321 /* QuestionViewModel.swift in Sources */,
 				04F0A2A82990F97F004DD321 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
