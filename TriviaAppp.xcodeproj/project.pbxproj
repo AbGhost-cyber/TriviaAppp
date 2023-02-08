@@ -22,6 +22,10 @@
 		04F0A2B929921AA9004DD321 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */; };
 		04F0A2BB2992455E004DD321 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2BA2992455E004DD321 /* ScoreCard.swift */; };
 		04F0A2BD2993611A004DD321 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2BC2993611A004DD321 /* Statistics.swift */; };
+		04F0A2C029937179004DD321 /* simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0A2BF29937178004DD321 /* simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png */; };
+		04F0A2C2299374E9004DD321 /* simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0A2C1299374E9004DD321 /* simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png */; };
+		04F0A2C429937504004DD321 /* simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0A2C329937503004DD321 /* simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png */; };
+		04F0A2C62993750F004DD321 /* simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0A2C52993750F004DD321 /* simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		04F0A2BA2992455E004DD321 /* ScoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
 		04F0A2BC2993611A004DD321 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		04F0A2BF29937178004DD321 /* simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png"; sourceTree = "<group>"; };
+		04F0A2C1299374E9004DD321 /* simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png"; sourceTree = "<group>"; };
+		04F0A2C329937503004DD321 /* simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png"; sourceTree = "<group>"; };
+		04F0A2C52993750F004DD321 /* simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,7 @@
 		04F0A2922990F907004DD321 /* TriviaAppp */ = {
 			isa = PBXGroup;
 			children = (
+				04F0A2BE2993714F004DD321 /* Screenshots */,
 				04F0A2B1299100B3004DD321 /* Views */,
 				04F0A2B02990FBB9004DD321 /* Info.plist */,
 				04F0A2AB2990FB7D004DD321 /* Fonts */,
@@ -150,6 +159,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		04F0A2BE2993714F004DD321 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				04F0A2C329937503004DD321 /* simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png */,
+				04F0A2C52993750F004DD321 /* simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png */,
+				04F0A2C1299374E9004DD321 /* simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png */,
+				04F0A2BF29937178004DD321 /* simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,8 +228,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F0A2C429937504004DD321 /* simulator_screenshot_ECD35567-4529-44EE-8F21-D6B950698690.png in Resources */,
+				04F0A2C029937179004DD321 /* simulator_screenshot_4BD0BD89-A025-479B-9498-0EB58E70A2E8.png in Resources */,
+				04F0A2C2299374E9004DD321 /* simulator_screenshot_BCCB29AB-8250-4025-870F-01CA6EEA79D8.png in Resources */,
 				04F0A29B2990F909004DD321 /* Preview Assets.xcassets in Resources */,
 				04F0A2AE2990FB9A004DD321 /* Proxima Nova Font-Regular.otf in Resources */,
+				04F0A2C62993750F004DD321 /* simulator_screenshot_F1C99B59-0C42-4422-99D2-4B18E91D4F5C.png in Resources */,
 				04F0A2AF2990FB9A004DD321 /* Proxima Nova Font-Bold.otf in Resources */,
 				04F0A2982990F909004DD321 /* Assets.xcassets in Resources */,
 			);

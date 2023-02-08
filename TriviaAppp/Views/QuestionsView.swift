@@ -15,6 +15,7 @@ struct CardProps {
 }
 
 struct QuestionsView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var props: CardProps = CardProps()
     @StateObject var viewmodel: QuestionViewModel = QuestionViewModel()
     @State private var showStats = false
@@ -44,6 +45,7 @@ struct QuestionsView: View {
             }
             .toolbar(.hidden, for: .tabBar)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -62,6 +64,15 @@ struct QuestionsView: View {
                         .font(.primary)
                         .foregroundColor(Color(uiColor: .white))
                         .opacity(props.hasReachedEnd ? 0 : 1)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("\(Image(systemName: "chevron.left")) \(category)")
+                            .font(.secondaryRegular2)
+                    }
+
                 }
             }
             .overlay {
