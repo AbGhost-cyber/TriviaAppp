@@ -48,9 +48,6 @@ struct ScoreCard: View {
             }.padding(.top)
         }
         .padding(30)
-        .background(Color.purple.opacity(0.3))
-        .cornerRadius(12)
-        .padding()
     }
 }
 

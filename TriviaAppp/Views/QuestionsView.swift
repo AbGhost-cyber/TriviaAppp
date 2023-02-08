@@ -31,6 +31,7 @@ struct QuestionsView: View {
                         .scaleEffect(x: 1, y: 1.5, anchor: .center)
                         .padding()
                         .padding(.bottom)
+                        .opacity(props.hasReachedEnd ? 0 : 1)
                     ZStack {
                         ForEach(viewmodel.questions.indices.reversed(), id: \.self) { index in
                             let relativeIndex = viewmodel.questions.distance(from: props.currentIndex, to: index)
@@ -46,18 +47,21 @@ struct QuestionsView: View {
             .toolbar {
                 ToolbarItem {
                     Button {
-                        
+                        withAnimation {
+                            handleButtonState(isNext: true, index: props.currentIndex)
+                        }
                     } label: {
                         Text("Skip")
                             .font(.primary)
                             .foregroundColor(Color(uiColor: .white))
-                    }
+                    }.opacity(props.hasReachedEnd ? 0 : 1)
                     
                 }
                 ToolbarItem(placement: .principal) {
                     Text("\(props.currentIndex) of \(viewmodel.questions.count)")
                         .font(.primary)
                         .foregroundColor(Color(uiColor: .white))
+                        .opacity(props.hasReachedEnd ? 0 : 1)
                 }
             }
             .overlay {
@@ -68,26 +72,35 @@ struct QuestionsView: View {
                 } else if viewmodel.isLoading {
                     ProgressView()
                 }
-                if props.hasReachedEnd {
-                    ScoreCard(score: viewmodel.getUserScore(), category: category) { clickType in
-                        switch clickType {
-                        case .playAgain :
-                            Task { try await viewmodel.playAgain(category: childCategory)}
-                            props.currentIndex = 0
-                            props.hasReachedEnd = false
-                        case .viewStatistics:
-                            showStats = true
-                        }
-                    }
-                    .animation(.easeInOut(duration: 0.35), value: props.hasReachedEnd)
-                    .transition(.move(edge: Edge.bottom))
-                }
+                scoreCard
             }
             .onAppear {
                 Task {
                     try await viewmodel.fetchQuestions(category: childCategory)
                 }
             }
+            .sheet(isPresented: $showStats) {
+                Statistics(viewmodel: viewmodel)
+                    .preferredColorScheme(.dark)
+            }
+        }
+    }
+    
+    
+    @ViewBuilder
+    private var scoreCard: some View {
+        if props.hasReachedEnd {
+            ScoreCard(score: viewmodel.getUserScore(), category: category) { clickType in
+                switch clickType {
+                case .playAgain :
+                    Task { try await viewmodel.playAgain(category: childCategory)}
+                    props.currentIndex = 0
+                    props.hasReachedEnd = false
+                case .viewStatistics:
+                    showStats = true
+                }
+            }
+            .animation(.easeIn, value: props.hasReachedEnd)
         }
     }
     
@@ -96,7 +109,7 @@ struct QuestionsView: View {
         RoundedRectangle(cornerRadius: 20, style: .circular)
             .fill(getCardColor(rIndex: rIndex))
             .padding()
-            .frame(height: geo.size.height / 1.1)
+            .frame(height: geo.size.height / 1.2)
             .overlay {
                 if props.currentIndex == index {
                     VStack {
@@ -118,14 +131,7 @@ struct QuestionsView: View {
             Button {
                 guard props.currentIndex > 0 else { return }
                 withAnimation(Animation.easeOut(duration: 0.35)) {
-                    props.currentIndex = viewmodel.questions.index(before: index)
-                    props.isBackTracking = true
-                    let currentScore = viewmodel.userScores.first { score in
-                        score.question == viewmodel.questions[props.currentIndex].question
-                    }
-                    if let currentScore = currentScore {
-                        viewmodel.currentScore = currentScore
-                    }
+                    handleButtonState(isNext: false, index: index)
                 }
             } label: {
                 Text("Back")
@@ -137,17 +143,7 @@ struct QuestionsView: View {
             Spacer()
             Button {
                 withAnimation(Animation.easeIn(duration: 0.35)) {
-                    props.isBackTracking = false
-                    props.hasReachedEnd = index == viewmodel.questions.count - 1
-                    props.currentIndex = viewmodel.questions.index(after: index)
-                    if props.currentIndex <= viewmodel.questions.count - 1 {
-                        let currentScore = viewmodel.userScores.first { score in
-                            score.question == viewmodel.questions[props.currentIndex].question
-                        }
-                        if let currentScore = currentScore {
-                            viewmodel.currentScore = currentScore
-                        }
-                    }
+                    handleButtonState(isNext: true, index: index)
                 }
             } label: {
                 Text("Next")
@@ -160,6 +156,20 @@ struct QuestionsView: View {
             }
         }
         .padding(.top, 35)
+    }
+    
+   private func handleButtonState(isNext: Bool = false, index: Int) {
+        props.isBackTracking = !isNext
+        props.hasReachedEnd = index == viewmodel.questions.count - 1
+        props.currentIndex = isNext ? viewmodel.questions.index(after: index) : viewmodel.questions.index(before: index)
+        if props.currentIndex <= viewmodel.questions.count - 1 {
+            let currentScore = viewmodel.userScores.first { score in
+                score.question == viewmodel.questions[props.currentIndex].question
+            }
+            if let currentScore = currentScore {
+                viewmodel.currentScore = currentScore
+            }
+        }
     }
     
     func getCardColor(rIndex: Int) -> Color {

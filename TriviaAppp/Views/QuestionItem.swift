@@ -22,6 +22,8 @@ struct QuestionItem: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(.black)
                 .font(.question)
+                .minimumScaleFactor(0.2)
+                .lineLimit(4)
                 .bold()
                 .padding(.top, 5)
             optionsView

@@ -21,6 +21,7 @@
 		04F0A2B729910D88004DD321 /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B629910D88004DD321 /* QuestionItem.swift */; };
 		04F0A2B929921AA9004DD321 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */; };
 		04F0A2BB2992455E004DD321 /* ScoreCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2BA2992455E004DD321 /* ScoreCard.swift */; };
+		04F0A2BD2993611A004DD321 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F0A2BC2993611A004DD321 /* Statistics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		04F0A2B629910D88004DD321 /* QuestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItem.swift; sourceTree = "<group>"; };
 		04F0A2B829921AA9004DD321 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		04F0A2BA2992455E004DD321 /* ScoreCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCard.swift; sourceTree = "<group>"; };
+		04F0A2BC2993611A004DD321 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				04F0A2B4299105BD004DD321 /* QuestionsView.swift */,
 				04F0A2B629910D88004DD321 /* QuestionItem.swift */,
 				04F0A2BA2992455E004DD321 /* ScoreCard.swift */,
+				04F0A2BC2993611A004DD321 /* Statistics.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			files = (
 				04F0A2B3299100F1004DD321 /* AppTabView.swift in Sources */,
 				04F0A2B5299105BD004DD321 /* QuestionsView.swift in Sources */,
+				04F0A2BD2993611A004DD321 /* Statistics.swift in Sources */,
 				04F0A2A52990F952004DD321 /* Models.swift in Sources */,
 				04F0A2962990F907004DD321 /* CollectionView.swift in Sources */,
 				04F0A2BB2992455E004DD321 /* ScoreCard.swift in Sources */,
